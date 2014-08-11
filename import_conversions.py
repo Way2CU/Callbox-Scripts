@@ -69,7 +69,7 @@ def load_csv(file_name, delimiter=','):
 				# parse dates
 				call_timestamp = None
 				if row[Column.CALL_TIMESTAMP] != '':
-					call_timestamp = datetime.strptime(row[Column.CALL_TIMESTAMP], '%Y-%m-%d %H:%M')
+					call_timestamp = datetime.strptime(row[Column.CALL_TIMESTAMP], '%Y-%m-%d')
 
 				sale_date = None
 				if row[Column.SALE_DATE] != '':
