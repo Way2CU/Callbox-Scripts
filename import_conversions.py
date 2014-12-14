@@ -36,7 +36,6 @@ ConversionData = namedtuple(
 			[
 				'call_timestamp',
 				'caller_number',	# caller phone number
-				'partner_number',	# receiving phone number
 				'tags',				# conversion tags separated by space: 'Lead' or 'Sale'
 				'value',
 				'sale_date'
@@ -46,12 +45,11 @@ ConversionData = namedtuple(
 
 # columns in csv files
 class Column:
-	CALL_TIMESTAMP = 0
-	CALLER_NUMBER = 1
-	PARTNER_NUMBER = 2
-	TAGS = 3
-	VALUE = 4
-	SALE_DATE = 5
+	CALL_TIMESTAMP = 4
+	CALLER_NUMBER = 5
+	TAGS = 2
+	VALUE = 1
+	SALE_DATE = 4
 
 
 def load_csv(file_name, delimiter=','):
@@ -79,7 +77,6 @@ def load_csv(file_name, delimiter=','):
 				data = ConversionData(
 						call_timestamp = call_timestamp,
 						caller_number = row[Column.CALLER_NUMBER],
-						partner_number = row[Column.PARTNER_NUMBER],
 						tags = row[Column.TAGS],
 						value = row[Column.VALUE],
 						sale_date = sale_date
@@ -109,7 +106,7 @@ def build_request(config, function, data=None, request_type='GET'):
 	else:
 		# no data provided, just create GET request
 		result = urllib2.Request(url)
-	
+
 	# add authentication data to the request
 	auth = base64.encodestring('{0}:{1}'.format(
 											config['access_code'],
